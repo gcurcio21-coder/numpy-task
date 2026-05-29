@@ -108,8 +108,36 @@ def correlazione_matrici(m1: list, m2: list) -> np.ndarray:
     return np.corrcoef(v1, v2)
 
 
+
 def operazioni_elemento_per_elemento(v1: list) -> tuple:
     """Sub-task 5: Restituisce (seno, coseno, arcoseno, arcocoseno) elemento per elemento calcolati sul primo array."""
+
+    if not v1:
+        raise ValueError("Il vettore non può essere vuoto.")
+
+    try:
+        vettore = np.asarray(v1, dtype=float)
+    except (TypeError, ValueError) as e:
+        raise TypeError(
+            "Il vettore deve contenere solo valori numerici."
+        ) from e
+
+
+    seno = np.sin(vettore)
+    coseno = np.cos(vettore)
+
+    # arcsin e arccos sono definiti solo in [-1, 1]
+    if np.any((vettore < -1) | (vettore > 1)):
+        raise ValueError(
+            "Per arcoseno e arcocoseno i valori devono essere compresi tra -1 e 1."
+        )
+
+    arcoseno = np.arcsin(vettore)
+    arcocoseno = np.arccos(vettore)
+
+    return seno, coseno, arcoseno, arcocoseno
+
+
 
 
 
