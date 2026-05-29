@@ -46,6 +46,42 @@ def rango_matrice(m: list) -> int:
 def risolvi_sistema_lineare(A: list, b: list) -> np.ndarray:
     """Sub-task 3: Risolvere un Sistema Lineare."""
 
+    if not A or not b:
+        raise ValueError("La matrice A e il vettore b non possono essere vuoti.")
+
+    try:
+        matrice = np.asarray(A, dtype=float)
+        vettore = np.asarray(b, dtype=float)
+    except (TypeError, ValueError) as e:
+        raise TypeError(
+            "A e b devono contenere solo valori numerici."
+        ) from e
+
+    if matrice.ndim != 2:
+        raise ValueError("A deve essere una matrice bidimensionale.")
+
+    if vettore.ndim != 1:
+        raise ValueError("b deve essere un vettore monodimensionale.")
+
+    righe, colonne = matrice.shape
+
+    if righe != colonne:
+        raise ValueError("La matrice A deve essere quadrata.")
+
+    if righe != vettore.shape[0]:
+        raise ValueError(
+            "Le dimensioni di A e b non sono compatibili."
+        )
+
+    try:
+        soluzione = np.linalg.solve(matrice, vettore)
+    except np.linalg.LinAlgError as e:
+        raise ValueError(
+            "Il sistema non ha una soluzione unica."
+        ) from e
+
+    return soluzione
+
 
 def correlazione_matrici(m1: list, m2: list) -> np.ndarray:
     """Sub-task 4: Correlazione tra Matrici 2x2."""
