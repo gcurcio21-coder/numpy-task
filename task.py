@@ -21,11 +21,31 @@ def prodotto_scalare(v1: list, v2: list) -> float:
 
 def rango_matrice(m: list) -> int:
     """Sub-task 2: Calcola il rango di una matrice."""
-    pass
+
+    if not m or not isinstance(m, list):
+        raise ValueError("La matrice non può essere vuota.")
+
+    try:
+        matrice = np.asarray(m, dtype=float)
+    except Exception as e:
+        raise TypeError(
+            "La matrice deve contenere solo valori numerici."
+        ) from e
+
+    if matrice.ndim != 2:
+        raise ValueError(
+            "L'input deve essere una matrice (lista di liste)."
+        )
+
+    rango = np.linalg.matrix_rank(matrice)
+
+    return int(rango)
+
+
 
 def risolvi_sistema_lineare(A: list, b: list) -> np.ndarray:
     """Sub-task 3: Risolvere un Sistema Lineare."""
-    pass
+
 
 def correlazione_matrici(m1: list, m2: list) -> np.ndarray:
     """Sub-task 4: Correlazione tra Matrici 2x2."""
