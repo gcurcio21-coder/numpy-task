@@ -85,11 +85,32 @@ def risolvi_sistema_lineare(A: list, b: list) -> np.ndarray:
 
 def correlazione_matrici(m1: list, m2: list) -> np.ndarray:
     """Sub-task 4: Correlazione tra Matrici 2x2."""
-    pass
+
+    if not m1 or not m2:
+        raise ValueError("Le matrici non possono essere vuote.")
+
+    try:
+        A = np.asarray(m1, dtype=float)
+        B = np.asarray(m2, dtype=float)
+    except (TypeError, ValueError) as e:
+        raise TypeError(
+            "Le matrici devono contenere solo valori numerici."
+        ) from e
+
+    if A.shape != (2, 2) or B.shape != (2, 2):
+        raise ValueError(
+            "Entrambe le matrici devono avere dimensione 2x2."
+        )
+
+    v1 = A.ravel()
+    v2 = B.ravel()
+
+    return np.corrcoef(v1, v2)
+
 
 def operazioni_elemento_per_elemento(v1: list) -> tuple:
     """Sub-task 5: Restituisce (seno, coseno, arcoseno, arcocoseno) elemento per elemento calcolati sul primo array."""
-    pass
+
 
 
 def main():
